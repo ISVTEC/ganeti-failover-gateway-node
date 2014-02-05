@@ -50,6 +50,7 @@ do
     # it does not exist.
     ip route replace $gw/32 dev eth0
     ip route replace default via $gw
+    break
 done
 
 # Create a temporary file
