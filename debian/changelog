@@ -1,0 +1,5 @@
+ganeti-failover-gateway-node (1.0-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Cyril Bouthors <cyril@bouthors.org>  Wed, 05 Feb 2014 15:26:29 +0100

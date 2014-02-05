@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# Copyright (C) 2014 Cyril Bouthors <cyril@boutho.rs>
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+set -e -o pipefail -o nounset
+
+lockfile='/var/lock/ganeti-failover-gateway-node'
+gws=''
+gw_url=''
+gw_file=''
+
+# Lock
+dotlockfile -r 0 -p $lockfile || exit
+
+. /etc/ganeti-failover-gateway-node.conf
+
+if [ -f "$gw_file" ]
+then
+    gws=$(cat $gw_file)
+fi
+
+for gw in $gws
+do
+    # Check if $gw is defined
+    if [ -z "$gw" ]
+    then
+	continue
+    fi
+
+    # Check if gateway replies to ARP (hence reachable on the Ethernet segment).
+    if ! arping -q -c 3 $gw
+    then
+	continue
+    fi
+
+    # We use the 'replace' action to transparently modify the route or add it if
+    # it does not exist.
+    ip route replace $gw/32 dev eth0
+    ip route replace default via $gw
+done
+
+# Create a temporary file
+tempfile=$(tempfile)
+trap "rm -f $tempfile" EXIT HUP INT TRAP TERM
+
+# Update the cache of the gateway list file
+if wget -q -N -O $tempfile $gw_url
+then
+    mv $tempfile $gw_file
+fi
+
+# Remove lock
+dotlockfile -u $lockfile
