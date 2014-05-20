@@ -1,9 +1,10 @@
 ganeti-failover-gateway-node (1.0-2) unstable; urgency=medium
 
-  * bin/ganeti-failover-gateway-node: check if the gateway list file is
-    empty before using it
+  * bin/ganeti-failover-gateway-node:
+     - check if the gateway list file has a size greater than zero
+     - check if the gateway list file contains at least one IP address
 
- --
+ -- Cyril Bouthors <cyril@bouthors.org>  Tue, 20 May 2014 13:54:29 +0200
 
 ganeti-failover-gateway-node (1.0-1) unstable; urgency=low
 

@@ -58,10 +58,28 @@ tempfile=$(tempfile)
 trap "rm -f $tempfile" EXIT HUP INT TRAP TERM
 
 # Update the cache of the gateway list file
-if wget -q -N -O $tempfile $gw_url && [ -s $tempfile ]
+if ! wget -q -N -O $tempfile $gw_url
 then
-    mv $tempfile $gw_file
+    echo "$0: unable to fetch $gw_url" >&2
+    exit 1
 fi
+
+# Check if the file is empty
+if [ ! -s $tempfile ]
+then
+    echo "$0: temporary file has a zero size" >&2
+    exit 1
+fi
+
+# Check if the new gateway file contains at least one IP address
+if [ "$(wc -w < $tempfile)" -lt 1 ]
+then
+    echo "$0: temporary file does not contain any IP address" >&2
+    exit 1
+fi
+
+# Enable gateway file
+mv $tempfile $gw_file
 
 # Remove lock
 dotlockfile -u $lockfile
