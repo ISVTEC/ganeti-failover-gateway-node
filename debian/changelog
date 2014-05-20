@@ -1,3 +1,10 @@
+ganeti-failover-gateway-node (1.0-2) unstable; urgency=medium
+
+  * bin/ganeti-failover-gateway-node: check if the gateway list file is
+    empty before using it
+
+ --
+
 ganeti-failover-gateway-node (1.0-1) unstable; urgency=low
 
   * Initial release

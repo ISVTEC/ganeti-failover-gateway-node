@@ -58,7 +58,7 @@ tempfile=$(tempfile)
 trap "rm -f $tempfile" EXIT HUP INT TRAP TERM
 
 # Update the cache of the gateway list file
-if wget -q -N -O $tempfile $gw_url
+if wget -q -N -O $tempfile $gw_url && [ -s $tempfile ]
 then
     mv $tempfile $gw_file
 fi
