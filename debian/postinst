@@ -1,0 +1,44 @@
+#!/bin/bash
+#
+# Copyright (C) 2016 Julien Virey <julien.virey@isvtec.com>
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+# FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program. If not, see <http://www.gnu.org/licenses/>.
+#
+
+set -e -o pipefail -o nounset
+
+give_me_term_colors(){
+    red=$(tput setaf 1)
+    green=$(tput setaf 2)
+    reset=$(tput sgr0)
+}
+
+interface_count=$(ls /sys/class/net | grep -v lo | wc -l)
+network_interface=$(ls /sys/class/net | grep -v lo | head -1)
+
+main() {
+    give_me_term_colors
+
+    if [[ $interface_count -gt 1 ]]; then
+        echo "${red}"
+        echo "There is more than one interface available in /sys/class/net"
+        echo "We are using ${reset}$network_interface${red}"
+        echo "If you want to use another interface, please define network_interface in"
+        echo "/etc/ganeti-failover-gateway-node.conf"
+        echo "${reset}"
+    else
+        echo "We are using ${green}$network_interface${reset} for auto route assign"
+    fi
+}
+
+main
