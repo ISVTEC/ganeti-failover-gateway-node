@@ -37,13 +37,13 @@ do
     # Check if $gw is defined
     if [ -z "$gw" ]
     then
-	continue
+        continue
     fi
 
     # Check if gateway replies to ARP (hence reachable on the Ethernet segment).
     if ! arping -q -w 1 -c 1 $gw
     then
-	continue
+        continue
     fi
 
     # We use the 'replace' action to transparently modify the route or add it if
