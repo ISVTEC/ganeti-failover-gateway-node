@@ -25,6 +25,10 @@ gw_file=''
 # Lock
 dotlockfile -r 0 -p $lockfile || exit
 
+# We use the first interface detected by the kernel
+# that is not the loopback
+network_interface=$(ls /sys/class/net | grep -v lo | head -1)
+
 . /etc/ganeti-failover-gateway-node.conf
 
 if [ -f "$gw_file" ]
@@ -48,7 +52,7 @@ do
 
     # We use the 'replace' action to transparently modify the route or add it if
     # it does not exist.
-    ip route replace $gw/32 dev eth0
+    ip route replace $gw/32 dev "$network_interface"
     ip route replace default via $gw
     break
 done
