@@ -1,3 +1,9 @@
+ganeti-failover-gateway-node (1.0-4) unstable; urgency=medium
+
+  * #59031 detect interface that have an eth or en prefix
+
+ -- Julien Virey <julien.virey@isvtec.com>  Tue, 13 Dec 2016 13:43:24 +0100
+
 ganeti-failover-gateway-node (1.0-3) unstable; urgency=medium
 
   [ Michael Jeanson ]
