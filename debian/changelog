@@ -1,3 +1,16 @@
+ganeti-failover-gateway-node (1.0-3) unstable; urgency=medium
+
+  [ Michael Jeanson ]
+  * Create README.md
+
+  [ Julien Virey ]
+  * #59031 indent
+  * #59031 detect network interface
+  * #59031 quotes var
+  * #59031 post install script to inform user about network interface
+
+ -- Julien Virey <julien.virey@isvtec.com>  Tue, 13 Dec 2016 13:32:35 +0100
+
 ganeti-failover-gateway-node (1.0-2) unstable; urgency=medium
 
   * bin/ganeti-failover-gateway-node:
