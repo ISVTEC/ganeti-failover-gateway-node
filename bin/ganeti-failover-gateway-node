@@ -45,15 +45,15 @@ do
     fi
 
     # Check if gateway replies to ARP (hence reachable on the Ethernet segment).
-    if ! arping -q -w 1 -c 1 $gw
+    if ! arping -q -w 1 -c 1 "$gw"
     then
         continue
     fi
 
     # We use the 'replace' action to transparently modify the route or add it if
     # it does not exist.
-    ip route replace $gw/32 dev "$network_interface"
-    ip route replace default via $gw
+    ip route replace "$gw"/32 dev "$network_interface"
+    ip route replace default via "$gw"
     break
 done
 
@@ -62,28 +62,28 @@ tempfile=$(tempfile)
 trap "rm -f $tempfile" EXIT HUP INT TRAP TERM
 
 # Update the cache of the gateway list file
-if ! wget -q -N -O $tempfile $gw_url
+if ! wget -q -N -O "$tempfile" $gw_url
 then
     echo "$0: unable to fetch $gw_url" >&2
     exit 1
 fi
 
 # Check if the file is empty
-if [ ! -s $tempfile ]
+if [ ! -s "$tempfile" ]
 then
     echo "$0: temporary file has a zero size" >&2
     exit 1
 fi
 
 # Check if the new gateway file contains at least one IP address
-if [ "$(wc -w < $tempfile)" -lt 1 ]
+if [ "$(wc -w < "$tempfile")" -lt 1 ]
 then
     echo "$0: temporary file does not contain any IP address" >&2
     exit 1
 fi
 
 # Enable gateway file
-mv $tempfile $gw_file
+mv "$tempfile" $gw_file
 
 # Remove lock
 dotlockfile -u $lockfile
