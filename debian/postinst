@@ -32,12 +32,12 @@ main() {
     if [[ $interface_count -gt 1 ]]; then
         echo "${red}"
         echo "There is more than one interface available in /sys/class/net"
-        echo "We are using ${reset}$network_interface${red}"
+        echo "We are using ${reset}$network_interface${red} for ganeti-failover-gateway"
         echo "If you want to use another interface, please define network_interface in"
         echo "/etc/ganeti-failover-gateway-node.conf"
         echo "${reset}"
     else
-        echo "We are using ${green}$network_interface${reset} for auto route assign"
+        echo "We are using ${green}$network_interface${reset} for ganeti-failover-gateway"
     fi
 }
 
