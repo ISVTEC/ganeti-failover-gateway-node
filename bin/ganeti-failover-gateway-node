@@ -26,8 +26,8 @@ gw_file=''
 dotlockfile -r 0 -p $lockfile || exit
 
 # We use the first interface detected by the kernel
-# that is not the loopback
-network_interface=$(ls /sys/class/net | grep -v lo | head -1)
+# that have an en or eth prefix
+network_interface=$(ls /sys/class/net | grep -E 'en|eth' | head -1)
 
 . /etc/ganeti-failover-gateway-node.conf
 

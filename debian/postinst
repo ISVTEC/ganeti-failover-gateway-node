@@ -23,8 +23,8 @@ give_me_term_colors(){
     reset=$(tput sgr0)
 }
 
-interface_count=$(ls /sys/class/net | grep -v lo | wc -l)
-network_interface=$(ls /sys/class/net | grep -v lo | head -1)
+interface_count=$(ls /sys/class/net | grep -E 'en|eth' | wc -l)
+network_interface=$(ls /sys/class/net | grep -E 'en|eth' | head -1)
 
 main() {
     give_me_term_colors
