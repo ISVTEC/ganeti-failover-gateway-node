@@ -1,3 +1,9 @@
+ganeti-failover-gateway-node (1.0-6) unstable; urgency=medium
+
+  * #59641 no term color
+
+ -- Julien Virey <julien.virey@isvtec.com>  Fri, 16 Dec 2016 13:59:06 +0100
+
 ganeti-failover-gateway-node (1.0-5) unstable; urgency=medium
 
   * #59031 postinst msg more info
