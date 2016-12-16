@@ -17,27 +17,17 @@
 
 set -e -o pipefail -o nounset
 
-give_me_term_colors(){
-    red=$(tput setaf 1)
-    green=$(tput setaf 2)
-    reset=$(tput sgr0)
-}
-
 interface_count=$(ls /sys/class/net | grep -E 'en|eth' | wc -l)
 network_interface=$(ls /sys/class/net | grep -E 'en|eth' | head -1)
 
 main() {
-    give_me_term_colors
-
     if [[ $interface_count -gt 1 ]]; then
-        echo "${red}"
         echo "There is more than one interface available in /sys/class/net"
-        echo "We are using ${reset}$network_interface${red} for ganeti-failover-gateway"
+        echo "We are using $network_interface for ganeti-failover-gateway"
         echo "If you want to use another interface, please define network_interface in"
         echo "/etc/ganeti-failover-gateway-node.conf"
-        echo "${reset}"
     else
-        echo "We are using ${green}$network_interface${reset} for ganeti-failover-gateway"
+        echo "We are using $network_interface for ganeti-failover-gateway"
     fi
 }
 
