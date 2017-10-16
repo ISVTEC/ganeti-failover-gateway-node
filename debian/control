@@ -8,6 +8,10 @@ Standards-Version: 3.9.4
 
 Package: ganeti-failover-gateway-node
 Architecture: all
-Depends: liblockfile-bin, iputils-arping, wget, iproute2 | iproute, ${misc:Depends}
+Depends: liblockfile-bin,
+  iputils-arping,
+  curl,
+  iproute2 | iproute,
+  ${misc:Depends}
 Description: Manage Ganeti instances gateways on fail-over IP environment
  Package to install on the Ganeti node.

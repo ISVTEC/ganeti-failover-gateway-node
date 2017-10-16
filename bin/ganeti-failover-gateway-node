@@ -62,7 +62,7 @@ tempfile=$(tempfile)
 trap "rm -f $tempfile" EXIT HUP INT TRAP TERM
 
 # Update the cache of the gateway list file
-if ! wget -q -N -O "$tempfile" $gw_url
+if ! curl -s -o "$tempfile" $gw_url
 then
     echo "$0: unable to fetch $gw_url" >&2
     exit 1
