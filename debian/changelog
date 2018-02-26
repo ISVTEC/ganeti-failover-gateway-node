@@ -1,3 +1,12 @@
+ganeti-failover-gateway-node (1.0-7) unstable; urgency=medium
+
+  [ Stephane Dujardin ]
+  * Use curl instead of wget to lower cpu usage and execution duration
+
+  [ Cyril Bouthors ]
+
+ -- Cyril Bouthors <cyril@boutho.rs>  Mon, 26 Feb 2018 08:09:47 +0000
+
 ganeti-failover-gateway-node (1.0-6) unstable; urgency=medium
 
   * #59641 no term color
